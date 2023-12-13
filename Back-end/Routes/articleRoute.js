@@ -5,14 +5,14 @@ import express from "express";
 const articleRouter = express.Router();
 
 //Create ------------------------------------------------------------------------------
-articleRouter.post("/post/:id", /*upload.single('image_url'),*/ ArticleController.createArticle);
+articleRouter.post("/post/:id", /*upload.single('image_url'),*/ ArticleController.createArticle); //the id is for relation with user
 //Read --------------------------------------------------------------------------------
 articleRouter.get("/getAll",ArticleController.getAllArticles);
 articleRouter.get("/getById/:id", ArticleController.getArticleById);
 //Update ------------------------------------------------------------------------------
-articleRouter.put('/:id', ArticleController.editArticle);
+articleRouter.patch('/:id', ArticleController.editArticle);
 articleRouter.put("/changeImage/:id", /*upload.single('image_url'),*/ ArticleController.changeArticleImage);
 //Delete ------------------------------------------------------------------------------
-articleRouter.delete("/deleteByName/:id",ArticleController.deleteArticleByArticleId);
+articleRouter.delete("/deleteById/:id",ArticleController.deleteArticleByArticleId);
 
 export default articleRouter;

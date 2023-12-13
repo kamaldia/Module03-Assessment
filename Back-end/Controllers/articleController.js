@@ -15,6 +15,7 @@ class ArticleController {
       }
       const userId = req.params.userId
       new_article.userId = userId
+      console.log(req.body)
       const saved_new_article = await new_article.save(); //saving the manipulated instance to the db
       return res.status(201) //created
       .json({
@@ -71,7 +72,7 @@ static async getArticleById (req, res) {
   try {
     const { id }= req.params; //put :id in url as parameter
     const requested_article = await Article.findByPk(id, {include:[User]});
-    if (requested_article && requested_article.length > 0) { //added.length > 0, since empty array is a truthy value
+    if (requested_article) {
       return res.status(200)
       .json({
         data: requested_article,
@@ -175,7 +176,7 @@ static async deleteArticleByArticleId (req, res) {
     const article_id_to_delete = req.params.id; // put :id as parameter in the url
     const deleted_article_rows = await Article.destroy({
       where: {
-        article_id: article_id_to_delete,
+        id: article_id_to_delete,
       }
     })
     if (deleted_article_rows > 0) {
